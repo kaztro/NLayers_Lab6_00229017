@@ -30,7 +30,18 @@ public class EstudianteDAOImpl implements EstudianteDAO {
 	@Transactional
 	public void insert(Estudiante estudiante) throws DataAccessException {
 		entityManager.persist(estudiante);
-		
+	}
+	
+	@Override
+	public void delete(Integer code) throws DataAccessException {
+		Estudiante estudiante = entityManager.find(Estudiante.class, code);
+		entityManager.remove(estudiante);
+	}
+	
+	@Override
+	public Estudiante findOne(Integer code) throws DataAccessException {
+		Estudiante estudiante = entityManager.find(Estudiante.class, code);
+		return estudiante;
 	}
 
 }

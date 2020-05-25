@@ -5,10 +5,9 @@
 <title>Agregar un estudiante</title>
 </head>
 <body>
+	<h1>Ingresa un estudiante</h1>
 	<form th:action="@{/formEstudiante}" th:object="${estudiante}" method="post">
-		<h1>Ingresa un estudiante</h1>
-		<div class="form-content">
-			<label>Nombre :</label><br>
+			<label>Nombre:</label><br>
 			<input type="text" th:field="${estudiante.nombre}"><br>
 			<span th:errors="${estudiante.nombre}"></span><br>
 			
@@ -23,11 +22,15 @@
 			<label>Carrera:</label><br>
 			<input type="text" th:field="${estudiante.carrera}"><br>
 			<span th:errors="${estudiante.carrera}"></span><br><br>
-		</div>
-		<input type="submit" value="Agregar">
+		<input type="submit" value="Agregar Estudiante">
 	</form>
 	<br>
+    <form th:action="@{/delete}" method="post">
+		<label>Eliminar un estudiante</label><input type="number" name="cod"><br>
+    	<input type="submit" value="Borrar">
+	</form>
+    <br>
 	<button><a href="/listado">Ver todos los estudiantes</a></button>
 
 </body>
-</html></html>
+</html>
