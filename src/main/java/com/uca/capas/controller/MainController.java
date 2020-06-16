@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,6 +93,70 @@ public class MainController {
 		mav.setViewName("listado");
 		
 		return mav;
+	}
+	
+	//------------MODIFICAR EL ESTUDIANTE-------------------
+	@RequestMapping("/update")
+	public ModelAndView update(@Valid @ModelAttribute Estudiante estudiante, BindingResult result) {
+		
+		ModelAndView mav = new ModelAndView();
+		List<Estudiante> estudiantes = null;
+		
+		if(!result.hasErrors()) {
+			try {
+				estudianteService.insert(estudiante);
+				estudiantes = estudianteService.findAll();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			mav.addObject("estudiantes", estudiantes);
+			mav.setViewName("listado");
+		}else {
+			estudiante = new Estudiante();
+			mav.addObject("estudiante", estudiante);
+			mav.setViewName("index");
+		}
+		
+		return mav;
+		
+	}
+	
+	@PostMapping(value="/buscar", params="action=edit")
+	public ModelAndView estudianteModificado(@RequestParam(value = "cod") int codigo) {
+		
+		ModelAndView mav = new ModelAndView();
+		Estudiante estudiante = null;
+
+		try {
+			estudiante = estudianteService.findOne(codigo);
+			mav.addObject("estudiante", estudiante);
+			mav.setViewName("update");
+		}catch (Exception e) {
+			e.printStackTrace();
+			estudiante = new Estudiante();			
+			mav.addObject("estudiante", estudiante);
+			mav.setViewName("index");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/filter", method=RequestMethod.POST)
+	public ModelAndView filter(@RequestParam(value="nombre") String cadena) {
+		
+		ModelAndView mav = new ModelAndView();
+		List<Estudiante> estudiantes = null;
+		try {
+			
+			estudiantes = estudianteService.filtrarPor(cadena);			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("estudiantes", estudiantes);
+		mav.setViewName("listado");
+		
+		return mav;
+		
 	}
 
 }

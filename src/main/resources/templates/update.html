@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Editar</h1>
+
+    <form th:action="@{/update}" th:object="${estudiante}" method="post">
+        
+        <label >Codigo del estudiante:</label>
+		<input th:field="${estudiante.codigo}" th:value="${estudiante.codigo}">               
+        
+        <label>Nombre:</label><br>
+			<input type="text" th:field="${estudiante.nombre}" th:value="${estudiante.nombre}"><br>
+			<span th:errors="${estudiante.nombre}"></span><br>
+			
+			<label>Apellido:</label><br>
+			<input type="text" th:field="${estudiante.apellido}" th:value="${estudiante.apellido}"><br>
+			<span th:errors="${estudiante.apellido}"></span><br>
+			
+			<label>Carne:</label><br>
+			<input type="number" th:field="${estudiante.carne}" th:value="${estudiante.carne}"><br>
+			<span th:errors="${estudiante.carne}"></span><br>
+			
+			<label>Carrera:</label><br>
+			<input type="text" th:field="${estudiante.carrera}" th:value="${estudiante.carrera}"><br>
+			<span th:errors="${estudiante.carrera}"></span><br><br>
+		<input type="submit" value="Update">
+    </form>
+    <br>
+	<button><a href="/listado">Ver todos los estudiantes</a></button>
+	<br>
+	<button><a href="/index">Ingresar un nuevo estudiante</a></button>
+</body>
+</html>

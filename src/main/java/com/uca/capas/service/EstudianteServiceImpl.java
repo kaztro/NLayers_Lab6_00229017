@@ -7,34 +7,48 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.uca.capas.dao.EstudianteDAO;
 import com.uca.capas.domain.Estudiante;
+import com.uca.capas.repositories.EstudianteRepo;
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService {
 	
 	@Autowired
-	EstudianteDAO estudianteDAO;
+	EstudianteRepo estudianteRepo;
+	//EstudianteDAO estudianteDAO;
 	
 	@Override
 	public List<Estudiante> findAll() throws DataAccessException {
-		return estudianteDAO.findAll();
-	}
-	
-	@Override
-	public void insert(Estudiante estudiante) throws DataAccessException {
-		estudianteDAO.insert(estudiante);
+		//return estudianteRepo.findAll();
+		return estudianteRepo.mostrarTodo();
 	}
 
 	@Override
 	@Transactional
-	public void delete(Integer code) throws DataAccessException {
-		estudianteDAO.delete(code);
+	public void insert(Estudiante estudiante) throws DataAccessException {
+		estudianteRepo.save(estudiante);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Integer codigo) throws DataAccessException {
+		estudianteRepo.deleteById(codigo);
+	}
+
+	@Override
+	public Estudiante findOne(Integer id) throws DataAccessException {
+		return estudianteRepo.getOne(id);
 	}
 	
 	@Override
-	public Estudiante findOne(Integer code) throws DataAccessException {
-		return estudianteDAO.findOne(code);
+	public List<Estudiante> filtrarPor(String cadena) throws DataAccessException {
+		//return estudianteRepo.findByNombre(cadena);
+		return estudianteRepo.mostrarPorNombre(cadena);
+	}
+	
+	@Override
+	public List<Estudiante> empiezaCon(String cadena) throws DataAccessException {
+		return estudianteRepo.findByApellidoStartingWith(cadena);
 	}
 	
 }
