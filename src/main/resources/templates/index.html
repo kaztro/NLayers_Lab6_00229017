@@ -32,18 +32,14 @@
 	</form>
     <br>
     <form th:action="@{/buscar}" th:method="post">
-		<div class="form-content">
 			<label>Codigo del estudiante:</label><br>
-			<input class="form-control" type="text" name = "cod">
-			<input type="submit" name="action" value="Edit">
-		</div>
+			<input type="text" name = "cod">
+			<input type="submit" name="action" value="edit">
 	</form>
 	<br>
 	<form th:action="@{/filter}" th:method="post">
-		<div class="form-content">
 			<label>Filtrar por:</label><br>
 			<input type="text" name="nombre"><input type="submit" value="nombre">
-		</div>
 	</form>
 	<br>
 	<button><a href="/listado">Ver todos los estudiantes</a></button>
